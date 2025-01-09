@@ -1,30 +1,27 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-import { Produto } from '../../App'
+import { ProdutoType } from '../../App'
 
 type CarrinhoState = {
-  itens: Produto[]
+  itens: ProdutoType[]
 }
 
 const initialState: CarrinhoState = {
   itens: []
 }
 
-const CarrinhoSlice = createSlice({
+const carrinhoSlice = createSlice({
   name: 'carrinho',
   initialState,
   reducers: {
-    adicionar: (state, action: PayloadAction<Produto>) => {
-      const produto = action.payload
-
-      if (state.itens.find((produto) => produto.id === produto.id)) {
+    adicionar: (state, action: PayloadAction<ProdutoType>) => {
+      if (state.itens.find((item) => item.id === action.payload.id)) {
         alert('Item já adicionado')
       } else {
-        state.itens.push(produto)
+        state.itens.push(action.payload)
       }
     }
   }
 })
 
-export const { adicionar } = CarrinhoSlice.actions
-export default CarrinhoSlice.reducer
+export const { adicionar } = carrinhoSlice.actions
+export default carrinhoSlice.reducer

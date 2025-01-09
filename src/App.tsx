@@ -1,36 +1,24 @@
-import React, { useState } from 'react'
 import { Provider } from 'react-redux'
+import { store } from './store'
 import Header from './components/Header'
 import Produtos from './containers/Produtos'
-import { GlobalStyle } from './styles'
-import { store } from './store'
+import { Container, GlobalStyle } from './styles'
 
-export type Produto = {
+export type ProdutoType = {
   id: number
   nome: string
   preco: number
   imagem: string
 }
 
-const App: React.FC = () => {
-  const [favoritos, setFavoritos] = useState<Produto[]>([])
-
-  const favoritar = (produto: Produto) => {
-    const isFavorito = favoritos.find((p) => p.id === produto.id)
-    if (isFavorito) {
-      setFavoritos(favoritos.filter((p) => p.id !== produto.id))
-    } else {
-      setFavoritos([...favoritos, produto])
-    }
-  }
-
+function App() {
   return (
     <Provider store={store}>
       <GlobalStyle />
-      <div className="container">
+      <Container>
         <Header />
-        <Produtos favoritos={favoritos} favoritar={favoritar} />
-      </div>
+        <Produtos />
+      </Container>
     </Provider>
   )
 }
